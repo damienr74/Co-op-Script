@@ -1,5 +1,6 @@
 #!/bin/sh
 
+coop() {
 # login to the website.
 
 curl -b cookie.txt -c cookie.txt --data \
@@ -54,3 +55,11 @@ rm all_info.html
 # format the output however you want it!
 ) | awk '{print "\tFor My program: " $1 "\t| Applied to: " $2 "\t| Viewed: " $3}'\
 > /home/user/.file.txt # redirect to hidden file if you don't want your ~/ cluttured.
+}
+
+ping=$( { ping https://website.com/login.htm -q -w -1 -c 1 > /dev/null; } 2>&1 )
+
+if [[ $ping != *"ping: unknown host website.com"* ]]; then
+	coop;
+fi
+
